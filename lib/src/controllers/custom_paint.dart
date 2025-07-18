@@ -38,7 +38,7 @@ class PainterCustomPaint extends CustomPainter {
 
     // Paint object for the background color.
     final backgroundPaint = Paint()
-      ..color = Colors.white
+      ..color = Colors.transparent
       ..style = PaintingStyle.fill;
     // Defines the area to be painted as the canvas size.
     final rect = Rect.fromLTWH(0, 0, size.width, size.height);
