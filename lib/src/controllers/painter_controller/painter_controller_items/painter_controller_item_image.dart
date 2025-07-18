@@ -4,17 +4,20 @@ extension PainterControllerItemImage on PainterController {
   /// Adds an image to the painter as a new item, using the provided Uint8List.
   /// The image is inserted at the top of the
   /// items list, and an action is logged.
-  void addImage(Uint8List image, {String? layerTitle}) {
+  ImageItem? addImage(Uint8List image,
+      {String? layerTitle, PositionModel? imagePosition, Size? imageSize}) {
     if (image.isNotEmpty) {
       final painterItem = ImageItem(
-        position: const PositionModel(),
+        id: layerTitle,
+        position: imagePosition ?? const PositionModel(),
         image: image,
         layer: LayerSettings(
           title: layerTitle ??
               'Image (${value.items.whereType<ImageItem>().length})',
           index: value.items.length,
         ),
-        size: const SizeModel(width: 100, height: 100),
+        size: SizeModel(
+            width: imageSize?.width ?? 100, height: imageSize?.height ?? 100),
       );
       value = value.copyWith(
         items: value.items.toList()..insert(0, painterItem),
@@ -28,6 +31,9 @@ extension PainterControllerItemImage on PainterController {
         ),
       );
       value.selectedItem = painterItem;
+
+      return painterItem;
     }
+    return null;
   }
 }
